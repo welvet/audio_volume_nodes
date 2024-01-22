@@ -14,7 +14,7 @@ def set_driver(node, path):
 
 def generate_sound_basic(waves):
     if "Audio Info" in bpy.data.node_groups:
-        bpy.data.node_groups.remove("Audio Info")
+        bpy.data.node_groups.remove(bpy.data.node_groups["Audio Info"])
 
     sound_basic = bpy.data.node_groups.new("Audio Info", "GeometryNodeTree")
 
@@ -24,7 +24,7 @@ def generate_sound_basic(waves):
     node_id = 0
     loudness_id = 4
     for wave in waves:
-        output_label_name = "Loudness %s" % wave
+        output_label_name = "%s" % wave[0:40]
         sound_basic.interface.new_socket(name=output_label_name, in_out='OUTPUT', socket_type='NodeSocketFloat')
         loudness = sound_basic.nodes.new('ShaderNodeValue')
         loudness.label = output_label_name
